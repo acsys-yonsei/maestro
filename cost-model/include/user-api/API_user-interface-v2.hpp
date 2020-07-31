@@ -1006,8 +1006,8 @@ namespace maestro {
 
 
       void PrintAnalysisResultsSingleCluster(std::shared_ptr<CA::CostAnalyisResults> results) {
-        std::cout << std::endl;
-        std::cout << std::endl;
+        // std::cout << std::endl;
+        // std::cout << std::endl;
 
         long num_computations = results->GetNumComputations();
         long num_abs_computations = results->GetTopNumComputations();
@@ -1021,17 +1021,17 @@ namespace maestro {
         long double abs_throughput_max = static_cast<double>(num_abs_computations) / results->GetRuntime(CA::EstimationType::Min);
 
 
-        std::cout << "Num MACs: " << num_computations << std::endl;
+        // std::cout << "Num MACs: " << num_computations << std::endl;
 
 
-        std::cout << std::endl;
-        std::cout << "[Performance Analysis]" << std::endl;
-        std::cout << "Runtime: " << results->GetRuntime(CA::EstimationType::Exact) << " cycles" << std::endl;
+        // std::cout << std::endl;
+        // std::cout << "[Performance Analysis]" << std::endl;
+        // std::cout << "Runtime: " << results->GetRuntime(CA::EstimationType::Exact) << " cycles" << std::endl;
 
-        std::cout << "Throughput: " << throughput << " MACs/cycle" << std::endl;
+        // std::cout << "Throughput: " << throughput << " MACs/cycle" << std::endl;
 
 
-        std::cout << "[Buffer Access Analysis]" << std::endl;
+        // std::cout << "[Buffer Access Analysis]" << std::endl;
 
 
         int num_data_classes = static_cast<int>(DataClass::NumDataClasses);
@@ -1043,33 +1043,33 @@ namespace maestro {
         auto layer_type = results->GetLayerType();
         int tensor_info_idx = (*tensor_info_mapping_table_)[layer_type];
 
-        for(auto tensor : *(configuration_->tensors_->at(tensor_info_idx))) {
-          auto dataclass = tensor->GetDataClass();
+        // for(auto tensor : *(configuration_->tensors_->at(tensor_info_idx))) {
+        //   auto dataclass = tensor->GetDataClass();
 
-          std::cout << "Tensor " << tensor->GetTensorName() << std::endl;
-          std::cout << "L2 size requirement: " << results->GetBufferSizeReq(CA::BufferType::Upstream, dataclass) << std::endl;
-          std::cout << "L1 size requirement: " << results->GetBufferSizeReq(CA::BufferType::Downstream, dataclass) << std::endl;
+        //   std::cout << "Tensor " << tensor->GetTensorName() << std::endl;
+        //   std::cout << "L2 size requirement: " << results->GetBufferSizeReq(CA::BufferType::Upstream, dataclass) << std::endl;
+        //   std::cout << "L1 size requirement: " << results->GetBufferSizeReq(CA::BufferType::Downstream, dataclass) << std::endl;
 
-          std::cout << "L2 buffer write: "
-              << results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Write, dataclass) << std::endl;
-          std::cout << "L2 buffer read: "
-              << results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Read, dataclass) << std::endl;
-          std::cout << "L1 buffer write: "
-              << results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) << std::endl;
-          std::cout << "L1 buffer read: "
-              << results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass) << std::endl;
-          std::cout << "Data reuse factor: "
-              << static_cast<double>(results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass))
-                  / results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) << std::endl;
+        //   std::cout << "L2 buffer write: "
+        //       << results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Write, dataclass) << std::endl;
+        //   std::cout << "L2 buffer read: "
+        //       << results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Read, dataclass) << std::endl;
+        //   std::cout << "L1 buffer write: "
+        //       << results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) << std::endl;
+        //   std::cout << "L1 buffer read: "
+        //       << results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass) << std::endl;
+        //   std::cout << "Data reuse factor: "
+        //       << static_cast<double>(results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass))
+        //           / results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) << std::endl;
 
-          total_l1_write += results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass);
-          total_l1_read += results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass);
-        }
+        //   total_l1_write += results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass);
+        //   total_l1_read += results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass);
+        // }
 
-        std::cout << "Overall data reuse factor: " << static_cast<double>(total_l1_read) / static_cast<double>(total_l1_write);
+        // std::cout << "Overall data reuse factor: " << static_cast<double>(total_l1_read) / static_cast<double>(total_l1_write);
 
-        std::cout << std::endl;
-        std::cout << "[Energy Analysis]" << std::endl;
+        // std::cout << std::endl;
+        // std::cout << "[Energy Analysis]" << std::endl;
 
         long double l2_write_energy = 0;
         long double l2_read_energy = 0;
@@ -1077,67 +1077,67 @@ namespace maestro {
         long double l1_read_energy = 0;
         long double total_energy = 0;
 
-        std::cout << "-For each data class" << std::endl;
-        long double tmp;
-        for(auto tensor : *(configuration_->tensors_->at(tensor_info_idx))) {
-          auto dataclass = tensor->GetDataClass();
-          std::cout << "Tensor " << tensor->GetTensorName() << std::endl;
+        // std::cout << "-For each data class" << std::endl;
+        // long double tmp;
+        // for(auto tensor : *(configuration_->tensors_->at(tensor_info_idx))) {
+        //   auto dataclass = tensor->GetDataClass();
+        //   std::cout << "Tensor " << tensor->GetTensorName() << std::endl;
 
-          tmp = results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Write, dataclass) * l2_energy_multiplier;
-          std::cout << "L2 buffer write energy: " << tmp << " X MAC energy" << std::endl;
-          l2_write_energy += tmp;
+        //   tmp = results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Write, dataclass) * l2_energy_multiplier;
+        //   std::cout << "L2 buffer write energy: " << tmp << " X MAC energy" << std::endl;
+        //   l2_write_energy += tmp;
 
-          tmp = results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Read, dataclass)  * l2_energy_multiplier;
-          std::cout << "L2 buffer read energy: "  << tmp << " X MAC energy" << std::endl;
-          l2_read_energy += tmp;
+        //   tmp = results->GetBufferAccessCount(CA::BufferType::Upstream, CA::BufferAccessType::Read, dataclass)  * l2_energy_multiplier;
+        //   std::cout << "L2 buffer read energy: "  << tmp << " X MAC energy" << std::endl;
+        //   l2_read_energy += tmp;
 
-          tmp = results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) * l1_energy_multiplier;
-          std::cout << "L1 buffer write energy: " << tmp << " X MAC energy" << std::endl;
-          l1_write_energy += tmp;
+        //   tmp = results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Write, dataclass) * l1_energy_multiplier;
+        //   std::cout << "L1 buffer write energy: " << tmp << " X MAC energy" << std::endl;
+        //   l1_write_energy += tmp;
 
-          tmp = results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass) * l1_energy_multiplier;
-          std::cout << "L1 buffer read energy: " << tmp << " X MAC energy" << std::endl;
-          l1_read_energy += tmp;
-        }
+        //   tmp = results->GetBufferAccessCount(CA::BufferType::Downstream, CA::BufferAccessType::Read, dataclass) * l1_energy_multiplier;
+        //   std::cout << "L1 buffer read energy: " << tmp << " X MAC energy" << std::endl;
+        //   l1_read_energy += tmp;
+        // }
 
-        std::cout << std::endl;
+        // std::cout << std::endl;
 
         std::cout << "[Summary]" << std::endl;
-        std::cout << "TotalL2 buffer write energy: " << l2_write_energy << " X MAC energy" << std::endl;
-        std::cout << "Total L2 buffer read energy: " << l2_read_energy << " X MAC energy" << std::endl;
-        std::cout << "Total L1 buffer write energy: " << l1_write_energy << " X MAC energy" << std::endl;
-        std::cout << "Total L1 buffer read energy: " << l1_read_energy << " X MAC energy" << std::endl;
-        std::cout << "Total MAC energy: " << num_computations << " X MAC energy" << std::endl;
+        // std::cout << "TotalL2 buffer write energy: " << l2_write_energy << " X MAC energy" << std::endl;
+        // std::cout << "Total L2 buffer read energy: " << l2_read_energy << " X MAC energy" << std::endl;
+        // std::cout << "Total L1 buffer write energy: " << l1_write_energy << " X MAC energy" << std::endl;
+        // std::cout << "Total L1 buffer read energy: " << l1_read_energy << " X MAC energy" << std::endl;
+        // std::cout << "Total MAC energy: " << num_computations << " X MAC energy" << std::endl;
 
-        std::cout <<"Peak bandwidth requirement: " <<  results->GetPeakBWReq() << std::endl;
-        std::cout <<"Avg bandwidth requirement: " <<  results->GetAvgBWReq() << std::endl;
+        // std::cout <<"Peak bandwidth requirement: " <<  results->GetPeakBWReq() << std::endl;
+        // std::cout <<"Avg bandwidth requirement: " <<  results->GetAvgBWReq() << std::endl;
 
-        std::cout << std::endl;
+        // std::cout << std::endl;
         total_energy = l2_write_energy + l2_read_energy + l1_write_energy + l1_read_energy + num_computations;
         std::cout << "Total energy consumption: " << total_energy << " X MAC energy" << std::endl;
 
         std::cout << "Runtime: " << results->GetRuntime() << " cycles" << std::endl;
-        std::cout << "Throughput: " << throughput << " MACs/cycle" << std::endl;
-        long double performance_per_enrgy = throughput / total_energy;
-        std::cout << "Performance per MAC energy: " << performance_per_enrgy << " MACs/cycle/(MAC_energy)" << std::endl;
+        // std::cout << "Throughput: " << throughput << " MACs/cycle" << std::endl;
+        // long double performance_per_enrgy = throughput / total_energy;
+        // std::cout << "Performance per MAC energy: " << performance_per_enrgy << " MACs/cycle/(MAC_energy)" << std::endl;
 
-        std::cout << "Ingress Delay" << std::endl;
-          std::cout << "Min: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Min) << std::endl;
-          std::cout << "Max: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Max) << std::endl;
-          std::cout << "Avg: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Avg) << std::endl;
+        // std::cout << "Ingress Delay" << std::endl;
+        //   std::cout << "Min: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Min) << std::endl;
+        //   std::cout << "Max: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Max) << std::endl;
+        //   std::cout << "Avg: " << results->GetDelay(CA::DelayType::Ingress, CA::ValueType::Avg) << std::endl;
 
-        std::cout << "Egress Delay" << std::endl;
-          std::cout << "Min: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Min) << std::endl;
-          std::cout << "Max: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Max) << std::endl;
-          std::cout << "Avg: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Avg) << std::endl;
+        // std::cout << "Egress Delay" << std::endl;
+        //   std::cout << "Min: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Min) << std::endl;
+        //   std::cout << "Max: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Max) << std::endl;
+        //   std::cout << "Avg: " << results->GetDelay(CA::DelayType::Egress, CA::ValueType::Avg) << std::endl;
 
-        std::cout << "Computation Delay" << std::endl;
-          std::cout << "Min: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Min) << std::endl;
-          std::cout << "Max: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Max) << std::endl;
-          std::cout << "Avg: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Avg) << std::endl;
+        // std::cout << "Computation Delay" << std::endl;
+        //   std::cout << "Min: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Min) << std::endl;
+        //   std::cout << "Max: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Max) << std::endl;
+        //   std::cout << "Avg: " << results->GetDelay(CA::DelayType::Computation, CA::ValueType::Avg) << std::endl;
 
-        std::cout << "Average number of utilized PEs: " << results->GetNumAvgActiveClusters() << std::endl;
-        std::cout << "Arithmetic intensity: " << results->GetArithmeticIntensity() << std::endl;
+        // std::cout << "Average number of utilized PEs: " << results->GetNumAvgActiveClusters() << std::endl;
+        // std::cout << "Arithmetic intensity: " << results->GetArithmeticIntensity() << std::endl;
 
       }
 
